@@ -37,16 +37,16 @@ xt\_selinux was written -- despite the above problems -- to be a learning tool, 
 If at all possible, please use the secure networking functionality provided by SELinux itself, rather than xt\_selinux.   The following resources may help:
 
 * Secure networking with SELinux:
-  http://securityblog.org/brindle/2007/05/28/secure-networking-with-selinux/
+  [http://securityblog.org/brindle/2007/05/28/secure-networking-with-selinux/](http://securityblog.org/brindle/2007/05/28/secure-networking-with-selinux/)
 
 * SECMARK tutorial:
-  http://james-morris.livejournal.com/11010.html
+  [http://james-morris.livejournal.com/11010.html](http://james-morris.livejournal.com/11010.html)
 
 * Using SELInux and iptables together:
-  http://www.linux.com/learn/tutorials/421152-using-selinux-and-iptables-together
+  [http://www.linux.com/learn/tutorials/421152-using-selinux-and-iptables-together](http://www.linux.com/learn/tutorials/421152-using-selinux-and-iptables-together)
 
 * Network labeling statements:
-  http://selinuxproject.org/page/NetworkStatements
+  [http://selinuxproject.org/page/NetworkStatements](http://selinuxproject.org/page/NetworkStatements)
 
 
 INSTALLATION
@@ -200,7 +200,7 @@ SUPPORT
 
 Please send any questions, feedback, requests, or patches to mark@catseye.org
 
-Additional resources may be available at http://github.com/markmont/xt_selinux
+Additional resources may be available at [http://github.com/markmont/xt_selinux](http://github.com/markmont/xt_selinux)
 
 
 SEE ALSO
@@ -218,5 +218,5 @@ xt\_selinux is free software: you can redistribute it and/or modify it under the
 
 xt\_selinux is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License along with xt\_selinux.  If not, see http://www.gnu.org/licenses/
+You should have received a copy of the GNU General Public License along with xt\_selinux.  If not, see [http://www.gnu.org/licenses/](http://www.gnu.org/licenses/)
 
