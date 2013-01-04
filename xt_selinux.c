@@ -218,7 +218,7 @@ static bool xt_selinux_mt(const struct sk_buff *skb,
 		else if (iph->version == 6) {
 			const struct ipv6hdr *ip6h = ipv6_hdr(skb);
 			unsigned int offset;
-			int proto = ipv6_find_hdr(skb, &offset, -1, NULL);
+			int proto = ipv6_find_hdr(skb, &offset, -1, NULL, NULL);
 			get_proto_str(proto, proto_str);
 			printk("PROTO=%s SRC=%pI6 SPORT=%u DST=%pI6 DPORT=%u ",
 				proto_str, &ip6h->saddr, sport,
