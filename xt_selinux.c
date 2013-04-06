@@ -30,6 +30,7 @@
 #include <linux/ipv6.h>
 #include <linux/net.h>
 #include <net/sock.h>
+#include <net/ipv6.h>
 #include <linux/fs.h>
 #include <linux/security.h>
 #include <linux/selinux.h>
