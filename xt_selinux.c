@@ -140,6 +140,8 @@ static bool xt_selinux_mt(const struct sk_buff *skb,
 {
 	const struct xt_selinux_info *info = par->matchinfo;
 	const struct file *socket_file = NULL;
+	struct sock *sk;
+	struct sk_security_struct *sksec;
 	u32 sid[XTSEL_ITEMS];
 	int i;
 	
@@ -153,33 +155,34 @@ static bool xt_selinux_mt(const struct sk_buff *skb,
 
         sid[XTSEL_ITEM_SECMARK] = skb->secmark;
 
-        if (skb->sk != NULL) {
-		struct sk_security_struct *sksec =
-		  (struct sk_security_struct *) skb->sk->sk_security;
+	sk = skb_to_full_sk(skb);
+	if (sk != NULL) {
+		read_lock_bh(&sk->sk_callback_lock);
+		sksec = (struct sk_security_struct *) sk->sk_security;
 		if (sksec != NULL) {
 			sid[XTSEL_ITEM_SOCKET] = sksec->sid;
 			sid[XTSEL_ITEM_SOCKET_PEER] = sksec->peer_sid;
 		}
-        }
-
-	if (skb->sk != NULL && skb->sk->sk_socket != NULL) {
-		socket_file = skb->sk->sk_socket->file;
-	}
-	if (socket_file != NULL) {
-		struct file_security_struct *fsec =
-		  (struct file_security_struct *) socket_file->f_security;
-                const struct cred *f_cred = socket_file->f_cred;
-                if (fsec != NULL) {
-			sid[XTSEL_ITEM_SOCKET_FILE] = fsec->sid;
-			sid[XTSEL_ITEM_SOCKET_FILE_OWNER] = fsec->fown_sid;
+		if (sk->sk_socket != NULL) {
+			socket_file = sk->sk_socket->file;
 		}
-		if (f_cred != NULL) {
-			struct task_security_struct *tsec =
-			  (struct task_security_struct *) f_cred->security;
-			if (tsec != NULL) {
-				sid[XTSEL_ITEM_TASK] = tsec->sid;
+		if (socket_file != NULL) {
+			const struct cred *f_cred = socket_file->f_cred;
+			struct file_security_struct *fsec =
+			  (struct file_security_struct *) socket_file->f_security;
+			if (fsec != NULL) {
+				sid[XTSEL_ITEM_SOCKET_FILE] = fsec->sid;
+				sid[XTSEL_ITEM_SOCKET_FILE_OWNER] = fsec->fown_sid;
+			}
+			if (f_cred != NULL) {
+				struct task_security_struct *tsec =
+				  (struct task_security_struct *) f_cred->security;
+				if (tsec != NULL) {
+					sid[XTSEL_ITEM_TASK] = tsec->sid;
+				}
 			}
 		}
+		read_unlock_bh(&sk->sk_callback_lock);
 	}
 
 
